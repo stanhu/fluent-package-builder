@@ -11,6 +11,9 @@ export DH_RUBY = --gem-install
 override_dh_builddeb:
 	dh_builddeb -- -Zxz
 
+override_dh_strip:
+	dh_strip --no-automatic-dbgsym
+
 override_dh_auto_install:
 	rake build:deb_config FLUENT_PACKAGE_STAGING_PATH="$(CURDIR)/debian/tmp" NO_VAR_RUN=1
 	rake build:all        FLUENT_PACKAGE_STAGING_PATH="$(CURDIR)/debian/tmp" PATH="$(HOME)/.cargo/bin:$(PATH)"
